@@ -37,3 +37,64 @@ Requirements:
     )
 
     return response["message"]["content"]
+
+
+def evaluate_interview_answer(
+    question: str,
+    answer: str,
+    resume_text: str,
+    job_description: str,
+) -> str:
+    prompt = f"""
+You are an interview evaluator.
+
+Evaluate the candidate's answer to the interview question.
+
+Question:
+{question}
+
+Candidate Answer:
+{answer}
+
+Candidate Resume:
+{resume_text}
+
+Job Description:
+{job_description}
+
+Evaluate the answer on:
+1. Technical correctness
+2. Completeness
+3. Clarity
+4. Relevance
+
+Return your evaluation in this exact structure:
+
+Score: <number out of 10>
+
+Strengths:
+- <strength 1>
+- <strength 2>
+
+Missing Concepts:
+- <concept 1>
+- <concept 2>
+
+Feedback:
+<short constructive feedback>
+
+Better Answer:
+<concise example of a stronger answer>
+"""
+
+    response = ollama.chat(
+        model=MODEL_NAME,
+        messages=[
+            {
+                "role": "user",
+                "content": prompt,
+            }
+        ],
+    )
+
+    return response["message"]["content"]

@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from app.routes.evaluation import router as evaluation_router
 from app.routes.interview import router as interview_router
 from app.routes.resume import router as resume_router
 
@@ -11,6 +12,7 @@ app = FastAPI(
 
 app.include_router(resume_router)
 app.include_router(interview_router)
+app.include_router(evaluation_router)
 
 
 @app.get("/")
