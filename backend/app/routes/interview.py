@@ -86,6 +86,6 @@ async def generate_from_resume(
     return {
         "filename": file.filename,
         "pages": len(reader.pages),
-        "model": "qwen3:4b",
+        "model": "qwen3:1.7b-q4_K_M",
         "questions": questions,
     }

@@ -12,7 +12,6 @@ router = APIRouter(
 class EvaluationRequest(BaseModel):
     question: str = Field(min_length=10)
     answer: str = Field(min_length=10)
-    resume_text: str = Field(min_length=50)
     job_description: str = Field(min_length=50)
 
 
@@ -21,11 +20,10 @@ def evaluate_answer(request: EvaluationRequest):
     evaluation = evaluate_interview_answer(
         question=request.question,
         answer=request.answer,
-        resume_text=request.resume_text,
-        job_description=request.job_description,
+        job_description=request.job_description[:2000],
     )
 
     return {
-        "model": "qwen3:4b",
+        "model": "qwen3:1.7b-q4_K_M",
         "evaluation": evaluation,
     }
